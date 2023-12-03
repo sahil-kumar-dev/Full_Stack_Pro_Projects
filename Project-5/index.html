@@ -1,69 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
 	<title>Quiz App</title>
 </head>
-<style>
-	*{
-		margin: 0;
-		padding: 0;
-	}
-	body{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
-	}
-	.container{
-		border: 2px solid gray ;
-		width: 400px;
-		padding: 1rem;
-	}
-	.header{
-		background-color: black;
-		color: white;
-		padding: 5px 10px;
-	}
-	.header h2{
-		text-align: center;
-		padding: 10px 0;
-	}
-	.header div{
-		display: flex;
-		justify-content: space-between;
-	}
-	.question h4{
-		padding: 15px 0;
-	}
-	.options input{
-		visibility: hidden;
-		position: absolute;
-	}
-	.options label{
-		display: block;
-		padding: 4px 10px;
-		margin: 10px 0;
-		box-shadow: 0 0 1px 1px rgb(211, 211, 211);
-	}
-	.options input:checked+label{
-		border: 1px solid green;
-		box-shadow: 0 0 2px 2px green;
-	}
-	.nextBtn{
-		text-align: center;
-		padding-top: 20px;
-	}
-	.btn{
-		padding: 10px 25px;
-		background-color: black;
-		color: white;
-		border: none;
-		outline: none;
-		cursor: pointer;
-	}
-</style>
 <body>
 	<div class="container">
 		<div class="quiz-box">
@@ -74,23 +17,27 @@
 					<h5>Score: <span class="score">0</span></h5>
 				</div>
 			</div>
-			<div class="question">
-				<h4>What is 2+2?</h4>
-			</div>
-			<div class="options">
-				<input type="radio" name="answer" id="a" class="radioBtn">
-				<label for="a">3</label>
-				<input type="radio" name="answer" id="b" class="radioBtn">
-				<label for="b">4</label>
-				<input type="radio" name="answer" id="c" class="radioBtn">
-				<label for="c">0</label>
-				<input type="radio" name="answer" id="d" class="radioBtn">
-				<label for="d">6</label>
+			<div class="main-section">
+				<div class="question">
+					<h4 id="question"></h4>
+				</div>
+				<div class="options">
+					<input type="radio" name="answer" id="a" class="radioBtn">
+					<label for="a" id="optionA"></label>
+					<input type="radio" name="answer" id="b" class="radioBtn">
+					<label for="b" id="optionB"></label>
+					<input type="radio" name="answer" id="c" class="radioBtn">
+					<label for="c" id="optionC"></label>
+					<input type="radio" name="answer" id="d" class="radioBtn">
+					<label for="d" id="optionD"></label>
+				</div>
 			</div>
 			<div class="nextBtn">
 				<button class="btn">Next</button>
 			</div>
 		</div>
 	</div>
+	<script src="script.js"></script>
 </body>
+
 </html>
