@@ -6,6 +6,7 @@ const opt_B = document.getElementById('optionB')
 const opt_C = document.getElementById('optionC')
 const opt_D = document.getElementById('optionD')
 const score = document.querySelector(".score")
+const restartBtn = document.querySelector('.btn_restart')
 
 const questions = [
 	{
@@ -108,34 +109,61 @@ function nextQuestion() {
 
 nextBtn.addEventListener('click', () => {
 
-	if (flag) {
-		startingIndex++
-		flag = false
-		option.disabled=false
+	if (startingIndex + 1 === questions.length) {
+		document.querySelector('.main-section').classList.toggle('none')
+		document.querySelector('.quiz-over').classList.toggle('none')
+		console.log("completed");
 	}
 
+	console.log(startingIndex, "Length");
 
-	nextQuestion()
+	if (flag && startingIndex < questions.length) {
+		startingIndex++
+		flag = false
+		nextQuestion()
+	}
+
+	options.forEach(otherOption => {
+		otherOption.disabled = false;
+	});
+
+
 	document.querySelector('.question-no').innerHTML = startingIndex + 1
 
 	options.forEach(option => {
 		option.checked = false
 		option.nextElementSibling.removeAttribute('style')
 	})
-	flag = false
 })
 
 options.forEach(option => {
 	option.addEventListener('input', () => {
-		// option.disabled = true
-		if (option.id === questions[startingIndex].correctOption) {
+
+		const correctOptionId = questions[startingIndex].correctOption
+
+		options.forEach(otherOption => {
+			otherOption.disabled = true;
+		});
+
+		if (option.id === correctOptionId) {
 			option.nextElementSibling.style.border = "2px solid green"
 			option.nextElementSibling.style.boxShadow = "0 0 2px 2px green"
 			current_score++
 		} else {
-			
+			const correctOptionElement = document.getElementById(correctOptionId);
+			correctOptionElement.nextElementSibling.style.border = "2px solid green";
+			correctOptionElement.nextElementSibling.style.boxShadow = "0 0 2px 2px green";
 		}
 		flag = true
 	})
 })
-console.log(options);
+
+
+function restart() {
+	startingIndex = 0
+	console.log(startingIndex);
+	console.log("ok");
+	document.querySelector('.main-section').classList.toggle('none')
+	document.querySelector('.quiz-over').classList.toggle('none')
+	nextQuestion()
+}
