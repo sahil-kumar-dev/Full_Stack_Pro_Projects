@@ -146,6 +146,9 @@ nextBtn.addEventListener('click', () => {
 		option.checked = false
 		option.nextElementSibling.removeAttribute('style')
 	})
+
+	//add final score to the UI
+	document.querySelector('.final_score').innerHTML = current_score
 })
 
 
