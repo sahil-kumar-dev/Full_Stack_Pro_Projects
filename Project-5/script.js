@@ -8,6 +8,9 @@ const opt_D = document.getElementById('optionD')
 const score = document.querySelector(".score")
 const restartBtn = document.querySelector('.btn_restart')
 
+
+// all questions 
+
 const questions = [
 	{
 		question: "What is 2+2?",
@@ -90,13 +93,20 @@ const questions = [
 		correctOption: "a"
 	},
 ];
+
+// load question on fisrt window load 
+
 window.onload = () => {
 	nextQuestion()
 }
-let questionNumber = 1
-let startingIndex = 0
-let current_score = 0
-let flag = false
+
+
+let questionNumber = 1 //initial question number
+let startingIndex = 0 //starting index of the question array
+let current_score = 0 //current score
+let flag = false //flag to check wheather the any of the option is selected or not
+
+//add question and options to the UI
 function nextQuestion() {
 	question.innerHTML = questions[startingIndex].question
 	opt_A.innerHTML = questions[startingIndex].optiona
@@ -106,50 +116,57 @@ function nextQuestion() {
 	score.innerHTML = current_score
 }
 
-
+//next button 
 nextBtn.addEventListener('click', () => {
 
+	//check if the all questions are attempted or not
 	if (startingIndex + 1 === questions.length) {
 		document.querySelector('.main-section').classList.toggle('none')
 		document.querySelector('.quiz-over').classList.toggle('none')
 		console.log("completed");
 	}
 
-	console.log(startingIndex, "Length");
-
+	//check if the option are selected or not 
 	if (flag && startingIndex < questions.length) {
 		startingIndex++
 		flag = false
 		nextQuestion()
 	}
 
+	//set radio button check to false, for the next question
 	options.forEach(otherOption => {
 		otherOption.disabled = false;
 	});
 
-
+	//count the current question number
 	document.querySelector('.question-no').innerHTML = startingIndex + 1
 
+	//remove the style property from each of the options
 	options.forEach(option => {
 		option.checked = false
 		option.nextElementSibling.removeAttribute('style')
 	})
 })
 
+
 options.forEach(option => {
 	option.addEventListener('input', () => {
 
 		const correctOptionId = questions[startingIndex].correctOption
 
+		//disable the user to select other options once he selected any of the option
 		options.forEach(otherOption => {
 			otherOption.disabled = true;
 		});
 
+		//check if the selected option is correct or not
 		if (option.id === correctOptionId) {
 			option.nextElementSibling.style.border = "2px solid green"
 			option.nextElementSibling.style.boxShadow = "0 0 2px 2px green"
 			current_score++
 		} else {
+
+			//if the selected option is not correct , add stlying according to it
 			const correctOptionElement = document.getElementById(correctOptionId);
 			correctOptionElement.nextElementSibling.style.border = "2px solid green";
 			correctOptionElement.nextElementSibling.style.boxShadow = "0 0 2px 2px green";
@@ -158,11 +175,9 @@ options.forEach(option => {
 	})
 })
 
-
+//restarts the quiz
 function restart() {
 	startingIndex = 0
-	console.log(startingIndex);
-	console.log("ok");
 	document.querySelector('.main-section').classList.toggle('none')
 	document.querySelector('.quiz-over').classList.toggle('none')
 	nextQuestion()
